@@ -13,7 +13,7 @@
 using namespace Eigen;
 
 namespace KMeans {
-    MatrixXd run(Data& data, int cluster_num, int max_iterations);
+    MatrixXd run(Data &data, int cluster_num, int max_iterations);
 }
 
 

@@ -2,21 +2,19 @@
 // Created by nikita on 09.01.2020.
 //
 
-#include "KMeans.h"
 #include "Data.h"
 #include <iostream>
 #include <vector>
-#include <random>
 
 using namespace std;
 
 namespace KMeans {
 
-    void assignClusters(const MatrixXd& centroids, const MatrixXd& points, vector<int>& assignments) {
+    void assignClusters(const MatrixXd &centroids, const MatrixXd &points, vector<int> &assignments) {
         //return vector of indices that map points to centroids as centroid[point[index]]
         //for each point calculate the index of nearest centroid and store it to vector
         MatrixXd distances = MatrixXd(points.rows(), centroids.rows());
-        for (auto i = 0; i < points.rows(); i ++) {
+        for (auto i = 0; i < points.rows(); ++i) {
             Index minDist;
             VectorXd distVector = (centroids.rowwise() - points.row(i)).rowwise().squaredNorm();
             distVector.minCoeff(&minDist);
@@ -25,7 +23,7 @@ namespace KMeans {
     }
 
 //    find all indices of the specific value in vector
-    vector<int> find(vector<int>& values, int value) {
+    vector<int> find(vector<int> &values, int value) {
         vector<int> result;
         for (int i = 0; i < values.size(); ++i) {
             if (values[i] == value) {
@@ -35,7 +33,7 @@ namespace KMeans {
         return result;
     }
 
-    MatrixXd run(Data& data, int cluster_num, int max_iterations) {
+    MatrixXd run(Data &data, int cluster_num, int max_iterations) {
         MatrixXd centroids = MatrixXd(cluster_num, data.points.cols());
         for (int i = 0; i < cluster_num; i++) {
             centroids.row(i) = data.spawnCentroid();
@@ -66,7 +64,7 @@ namespace KMeans {
                 }
             }
 
-            iterations ++;
+            iterations++;
         }
 
         return centroids;
