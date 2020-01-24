@@ -25,7 +25,7 @@ namespace KMeans {
     }
 
 //    find all indices of the specific value in vector
-    vector<int> extractIndices(vector<int> values, int value) {
+    vector<int> find(vector<int>& values, int value) {
         vector<int> result;
         for (int i = 0; i < values.size(); ++i) {
             if (values[i] == value) {
@@ -53,7 +53,7 @@ namespace KMeans {
 
             assignClusters(centroids, data.points, assignments);
             for (int i = 0; i < centroids.rows(); ++i) {
-                vector<int> cluster = extractIndices(assignments, i);
+                vector<int> cluster = find(assignments, i);
 
                 if (cluster.empty()) {
                     converged = false;
