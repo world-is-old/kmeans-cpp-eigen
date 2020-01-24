@@ -11,14 +11,11 @@ using namespace std;
 namespace KMeans {
 
     void assignClusters(const MatrixXd &centroids, const MatrixXd &points, vector<int> &assignments) {
-        //return vector of indices that map points to centroids as centroid[point[index]]
-        //for each point calculate the index of nearest centroid and store it to vector
+        //for each point calculate the index of nearest centroid and store it to assignments vector
         MatrixXd distances = MatrixXd(points.rows(), centroids.rows());
         for (auto i = 0; i < points.rows(); ++i) {
-            Index minDist;
             VectorXd distVector = (centroids.rowwise() - points.row(i)).rowwise().squaredNorm();
-            distVector.minCoeff(&minDist);
-            assignments[i] = minDist;
+            distVector.minCoeff(&assignments[i]);
         }
     }
 
@@ -39,7 +36,6 @@ namespace KMeans {
             centroids.row(i) = data.spawnCentroid();
         }
 
-        //store assignments to avoid reallocations
         vector<int> assignments = vector<int>(data.points.rows());
 
         int iterations = 0;
